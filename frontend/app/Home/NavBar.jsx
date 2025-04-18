@@ -3,30 +3,27 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
-import { CiUser } from "react-icons/ci";
+import { CiUser, CiHeart, CiSearch } from "react-icons/ci";
 import { BsCart } from "react-icons/bs";
-import { CiHeart } from "react-icons/ci";
-import { CiSearch } from "react-icons/ci";
+
 export default function NavBar() {
   const [navOpen, setNavOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r text-white shadow-md">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-white/10 backdrop-blur-lg shadow-lg border-b border-white/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex-shrink-0 text-2xl font-extrabold tracking-wide text-yellow-300">
+          <div className="flex-shrink-0 text-2xl font-extrabold tracking-wide text-yellow-400">
             <Link href="/">CloShop</Link>
           </div>
 
           {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-6 text-white font-medium">
-            <Link href="/" className="hover:text-yellow-300 transition"><CiUser size={20}/></Link>
-            <Link href="/" className="hover:text-yellow-300 transition"><CiSearch size={20}/></Link>
-            <Link href="/Cart" className="hover:text-yellow-300 transition"><BsCart size={20}/></Link>
-            <Link href="/Liked" className="hover:text-yellow-300 transition"><CiHeart size={20}/></Link>
-            
-        </div>
+          <div className="hidden md:flex space-x-6 text-white font-medium">
+            <Link href="/" className="hover:text-yellow-300 transition"><CiUser size={20} /></Link>
+            <Link href="/" className="hover:text-yellow-300 transition"><CiSearch size={20} /></Link>
+            <Link href="/Cart" className="hover:text-yellow-300 transition"><BsCart size={20} /></Link>
+          </div>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
@@ -39,7 +36,7 @@ export default function NavBar() {
 
       {/* Mobile Menu */}
       {navOpen && (
-        <div className="md:hidden bg-gradient-to-b from-indigo-600 via-purple-600 to-pink-600 px-4 py-3 space-y-3 text-white font-semibold">
+        <div className="md:hidden bg-white/10 backdrop-blur-lg px-4 py-3 space-y-3 text-white font-semibold border-t border-white/20">
           <Link href="/Profile" onClick={() => setNavOpen(false)} className="block hover:text-yellow-300">Profile</Link>
           <Link href="/Cart" onClick={() => setNavOpen(false)} className="block hover:text-yellow-300">Cart</Link>
           <Link href="/Liked" onClick={() => setNavOpen(false)} className="block hover:text-yellow-300">Liked</Link>

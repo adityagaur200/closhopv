@@ -13,7 +13,7 @@ const Card = ({ img }) => {
         New Denim Jackets
       </Typography>
 
-      <Button style={{backgroundColor:"black",color:"white"}}> 
+      <Button style={{backgroundColor:"black",color:"white"}} href='/Collection'> 
         Shop All Collection
       </Button>
     </Box>

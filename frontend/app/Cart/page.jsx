@@ -1,10 +1,10 @@
 import React from 'react'
-import AuthForm from './AuthForm'
+import Cart from './Cart'
 
 const page = () => {
   return (
     <div>
-      <AuthForm/>
+      <Cart/>
     </div>
   )
 }
