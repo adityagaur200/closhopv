@@ -1,6 +1,5 @@
 package com.backend.cartservice.Model;
 
-import com.backend.cartservice.DTO.CartDto;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -11,13 +10,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Builder
 @Document
 public class Cart
 {
     @Id
     private String product_id;
     private String product_name;
+    private String customer_id;
     private String product_price;
     private String product_image;
     private int product_quantity;

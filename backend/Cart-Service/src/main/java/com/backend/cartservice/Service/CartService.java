@@ -46,7 +46,7 @@ public class CartService {
 
     //FIND ALL CART ITEMS BY CUSTOMER ID.
     public List<CartDto> getById(int customerId) {
-        List<Cart> responseByid = cartRepository.findById(customerId);
+        List<Cart> responseByid = cartRepository.findByCustomerId(customerId);
         return responseByid.stream().map(this :: MapTo).toList();
     }
 }

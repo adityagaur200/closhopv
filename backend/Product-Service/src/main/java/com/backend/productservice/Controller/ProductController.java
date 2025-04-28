@@ -20,7 +20,7 @@ public class ProductController {
 
     // ✅ CREATE PRODUCT API
     @PostMapping("/create")
-    public ResponseEntity<Product> createProduct(@Validated @RequestBody ProductDto product) {
+    public ResponseEntity<Product> createProduct(@Validated @RequestBody ProductDto product){
         Product createdProduct = productService.create(product);
         return ResponseEntity.ok(createdProduct);
     }
@@ -77,7 +77,7 @@ public class ProductController {
         List<ProductDto> productDto = productService.getBySku(product_sku);
 
         if (productDto.isEmpty()) {
-            return ResponseEntity.notFound().build();  // Return 404 if no products found
+            return ResponseEntity.notFound().build();
         }
 
         return ResponseEntity.ok(productDto);

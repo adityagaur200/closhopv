@@ -3,6 +3,7 @@ package com.backend.orderservice.Model;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document
 @Data
@@ -16,6 +17,7 @@ public class Order
 {
     @Id
     private int order_id;
+    @Field("customer_id")
     private int customer_id;
     private int product_id;
     private int quantity;

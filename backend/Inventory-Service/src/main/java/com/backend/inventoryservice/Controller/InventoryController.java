@@ -1,7 +1,6 @@
 package com.backend.inventoryservice.Controller;
 
-import com.backend.inventoryservice.Model.Inventory;
-import com.backend.inventoryservice.Repository.InventoryRepository;
+import com.backend.inventoryservice.DTO.InventoryDTO;
 import com.backend.inventoryservice.Service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +16,8 @@ public class InventoryController
     private InventoryService inventoryService;
 
     @GetMapping()
-    public List<Inventory> isInStock(@RequestParam String skuCode)
+    public List<InventoryDTO> isInStock(@RequestParam List<String> skuCode)
     {
         return inventoryService.isInStock(skuCode);
     }
-
 }

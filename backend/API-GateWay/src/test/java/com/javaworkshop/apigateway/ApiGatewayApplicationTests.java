@@ -1,13 +1,13 @@
-package com.backend.apigateway;
+package com.javaworkshop.apigateway;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApiGateWayApplicationTests {
+class ApiGatewayApplicationTests {
 
-    @Test
-    void contextLoads() {
-    }
+	@Test
+	void contextLoads() {
+	}
 
 }

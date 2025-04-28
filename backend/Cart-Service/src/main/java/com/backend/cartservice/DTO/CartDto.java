@@ -6,7 +6,6 @@ import lombok.*;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 @ToString
 @Builder
 public class CartDto
@@ -17,6 +16,10 @@ public class CartDto
     private int product_quantity;
 
     public CartDto(CartBuilder cartBuilder) {
+    }
+
+    public CartDto() {
+
     }
 
     public String getProduct_name() {
@@ -43,12 +46,7 @@ public class CartDto
     public void setProduct_quantity(int product_quantity) {
         this.product_quantity = product_quantity;
     }
-    public CartDto(String product_name, String product_price, String product_image, int product_quantity) {
-        this.product_name = product_name;
-        this.product_price = product_price;
-        this.product_image = product_image;
-        this.product_quantity = product_quantity;
-    }
+
     public static class CartBuilder
     {
         private String product_name;
@@ -67,6 +65,7 @@ public class CartDto
         public CartBuilder() {
 
         }
+
 
         public CartBuilder setProduct_name(String product_name) {
             this.product_name = product_name;

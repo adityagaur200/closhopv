@@ -1,6 +1,6 @@
 package com.backend.inventoryservice.Service;
 
-import com.backend.inventoryservice.Model.Inventory;
+import com.backend.inventoryservice.DTO.InventoryDTO;
 import com.backend.inventoryservice.Repository.InventoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,8 +12,11 @@ public class InventoryService {
     @Autowired
     private InventoryRepository inventoryRepository;
 
-    public List<Inventory> isInStock(String skuCode)
+    public List<InventoryDTO> isInStock(List<String> skuCode)
     {
-        return
+        return inventoryRepository.findBySkuCode(skuCode).stream().map(
+                inventory -> InventoryDTO.builder().skuCode(inventory.getSkuCode())
+                        .isInStock(inventory.getQuantity()>0)
+                        .build()).toList();
     }
 }

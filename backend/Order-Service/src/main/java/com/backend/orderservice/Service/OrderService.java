@@ -9,97 +9,90 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class OrderService
-{
+public class OrderService {
+
     @Autowired
     private OrderRepository repo;
-    private WebClient.Builder webClient;
 
+    @Autowired
+    private WebClient.Builder webClientBuilder;
 
+    // CREATE ORDER SERVICE.
+    public Order addOrder(OrderDto orderDto) {
+        WebClient client = webClientBuilder.baseUrl("http://localhost:4040/product").build();
 
-    //CREATING ADD ORDER SERVICE.
-    public Order addOrder(OrderDto order) {
-        boolean isAvailable;
-        WebClient client = webClient.build();
+        String skuCode = orderDto.getsku_code();
 
-        String SkuCode = order.getsku_code();
-
-        // Fetch the list of orders and check availability
-        List<ProductDto> responseList = Collections.singletonList(client.get().uri(uriBuilder -> uriBuilder.path("/search/{sku_code}").build(SkuCode))
+        List<ProductDto> productDtos = client.get()
+                .uri("/search/sku/{skuCode}", skuCode)
                 .retrieve()
-                .bodyToMono(ProductDto.class)
-                .block());
+                .bodyToMono(new ParameterizedTypeReference<List<ProductDto>>() {})
+                .block();
 
-        isAvailable = responseList.stream().anyMatch(productDto -> productDto.getProduct_quantity()>0);
-
-        // Create new order only if the product is available
-        if (isAvailable) {
-            Order newOrder = Order.builder()
-                    .setOrder_date(order.getOrder_date())  // Updated method name
-                    .setOrder_time(order.getOrder_time())
-                    .setOrder_status(order.getOrder_status())
-                    .setDelivery_address(order.getDelivery_address())
-                    .setDelivery_city(order.getDelivery_city())
-                    .setDelivery_email(order.getDelivery_email())
-                    .setDelivery_phone(order.getDelivery_phone())
-                    .setDelivery_postal_code(order.getDelivery_postal_code())
-                    .setTotal_price(order.getTotal_price())
-                    .setQuantity(order.getQuantity())
-                    .setCustomer_id(order.getCustomer_id())
-                    .setProduct_id(order.getProduct_id())
-                    .build();
-
-            // Save the new order to the repository
-            return repo.save(newOrder);
-        } else {
-           throw new IllegalArgumentException("Out of Stock"); // Product is not available
+        if (productDtos == null || productDtos.isEmpty()) {
+            throw new IllegalArgumentException("Product with SKU " + skuCode + " not found");
         }
+
+        ProductDto productDto = productDtos.get(0);
+
+        if (productDto.getProduct_quantity() < orderDto.getQuantity()) {
+            throw new IllegalArgumentException("Insufficient stock for SKU " + skuCode);
+        }
+
+        Order newOrder = Order.builder()
+                .setOrder_date(orderDto.getOrder_date())
+                .setOrder_time(orderDto.getOrder_time())
+                .setOrder_status(orderDto.getOrder_status())
+                .setDelivery_address(orderDto.getDelivery_address())
+                .setDelivery_city(orderDto.getDelivery_city())
+                .setDelivery_email(orderDto.getDelivery_email())
+                .setDelivery_phone(orderDto.getDelivery_phone())
+                .setDelivery_postal_code(orderDto.getDelivery_postal_code())
+                .setTotal_price(orderDto.getTotal_price())
+                .setQuantity(orderDto.getQuantity())
+                .setCustomer_id(orderDto.getCustomer_id())
+                .setProduct_id(orderDto.getProduct_id())
+                .build();
+
+        return repo.save(newOrder);
     }
 
 
-    //GETTING ALL THE  ORDERS.
-    public List<OrderDto> showAll()
-    {
+    // GET ALL ORDERS.
+    public List<OrderDto> showAll() {
         List<Order> orders = repo.findAll();
-        return orders.stream().map(this :: MapTo).toList();
+        return orders.stream().map(this::mapToDto).toList();
     }
 
-    private OrderDto MapTo(Order order) {
-            OrderDto orderDto = new OrderDto();
-            orderDto.setCustomer_id(order.getCustomer_id());
-            orderDto.setProduct_id(order.getProduct_id());
-            orderDto.setQuantity(order.getQuantity());
-            orderDto.setTotal_price(order.getTotal_price());
-            orderDto.setOrder_status(order.getOrder_status());
-            orderDto.setDelivery_address(order.getDelivery_address());
-            orderDto.setDelivery_city(order.getDelivery_city());
-            orderDto.setDelivery_email(order.getDelivery_email());
-            orderDto.setDelivery_phone(order.getDelivery_phone());
-            orderDto.setDelivery_postal_code(order.getDelivery_postal_code());
-            orderDto.setOrder_time(order.getOrder_time());
-            orderDto.setOrder_date(order.getOrder_date());
-            orderDto.setOrder_status(order.getOrder_status());
-            return orderDto;
+    // GET ORDERS BY CUSTOMER ID.
+    public List<OrderDto> getById(int customer_id) {
+        List<Order> orders = repo.findByCustomerId(customer_id);
+        return orders.stream().map(this::mapToDto).toList();
     }
 
-
-    //GETTING ORDERS BY CUSTOMER_ID.
-    public Order getById(int customerId)
-    {
-        List<Order> orders = repo.findAll();
-        orders.stream().map(this :: MapTo).forEach(order -> order.setCustomer_id(customerId));
-        return orders.get(0);
+    // GET ORDER BY ORDER ID.
+    public Optional<Order> getByOrderId(int orderId) {
+        return repo.findById(String.valueOf(orderId));
     }
 
-    //GET ORDERS BY ORDER_ID.
-    public List<Order> getByOrderId(int order_id)
-    {
-        Optional<Order> orders = repo.findById(String.valueOf(order_id));
-        return orders.stream().toList();
+    private OrderDto mapToDto(Order order) {
+        OrderDto orderDto = new OrderDto();
+        orderDto.setCustomer_id(order.getCustomer_id());
+        orderDto.setProduct_id(order.getProduct_id());
+        orderDto.setQuantity(order.getQuantity());
+        orderDto.setTotal_price(order.getTotal_price());
+        orderDto.setOrder_status(order.getOrder_status());
+        orderDto.setDelivery_address(order.getDelivery_address());
+        orderDto.setDelivery_city(order.getDelivery_city());
+        orderDto.setDelivery_email(order.getDelivery_email());
+        orderDto.setDelivery_phone(order.getDelivery_phone());
+        orderDto.setDelivery_postal_code(order.getDelivery_postal_code());
+        orderDto.setOrder_time(order.getOrder_time());
+        orderDto.setOrder_date(order.getOrder_date());
+        return orderDto;
     }
 }
