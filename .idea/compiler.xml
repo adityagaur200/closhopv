@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="Api-Gateway" />
+      </profile>
+      <profile name="Annotation profile for Service-Discovery" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+        </processorPath>
+        <module name="Inventory-Service" />
+        <module name="Order-Service" />
+        <module name="Service-Discovery" />
+        <module name="Cart-Service" />
+        <module name="Notification-Service" />
+        <module name="Product-Service" />
+      </profile>
+      <profile name="Annotation profile for User-Service" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+        </processorPath>
+        <module name="User-Service" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="API-GateWay" target="21" />
+      <module name="Payment-Service" target="21" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="API-GateWay" options="-parameters" />
+      <module name="Api-Gateway" options="-parameters" />
+      <module name="Cart-Service" options="-parameters" />
+      <module name="Inventory-Service" options="-parameters" />
+      <module name="Notification-Service" options="-parameters" />
+      <module name="Order-Service" options="-parameters" />
+      <module name="Payment-Service" options="-parameters" />
+      <module name="Product-Service" options="-parameters" />
+      <module name="Service-Discovery" options="-parameters" />
+      <module name="User-Service" options="-parameters" />
+    </option>
+  </component>
+</project>
