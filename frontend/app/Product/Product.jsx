@@ -4,6 +4,7 @@ import {
   Radio, FormLabel, FormControl, IconButton, TextField
 } from '@mui/material';
 import Image from 'next/image';
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import { Add, Remove } from '@mui/icons-material';
 
@@ -19,6 +20,32 @@ const Product = () => {
 
   const [size, setSize] = useState('M');
   const [quantity, setQuantity] = useState(1);
+=======
+import React, { useEffect, useState } from 'react';
+import { Add, Remove } from '@mui/icons-material';
+import { useParams } from 'next/navigation';
+
+const Product = () => {
+  const {skucode} = useParams();
+  const [size, setSize] = useState('M');
+  const [quantity, setQuantity] = useState(1);
+  const[product,setProduct] = useState(null);
+  useEffect(()=>{
+    const fetchProduct = async()=>{
+      try{
+        const res = await fetch(`http://localhost:3000/product/${skucode}}`);
+        const data = await res.json();
+        setProduct(data);
+      }
+      catch(err)
+      {
+        console.error("Error fetching prodcut...",err);
+      }
+    };
+    if(skucode)fetchProduct();
+  },[skucode])
+  
+>>>>>>> origin/main
 
   const handleQuantityChange = (type) => {
     setQuantity(prev => type === 'inc' ? prev + 1 : Math.max(1, prev - 1));

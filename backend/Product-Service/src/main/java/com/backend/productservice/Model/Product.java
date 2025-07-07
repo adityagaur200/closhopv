@@ -7,11 +7,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 
 @Document
+<<<<<<< HEAD
 @Builder
+=======
+>>>>>>> origin/main
 @Data
 @AllArgsConstructor
 @Getter
 @Setter
+<<<<<<< HEAD
+=======
+@Builder
+>>>>>>> origin/main
 public class Product {
     @Id
     private String product_id;

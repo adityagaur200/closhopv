@@ -3,7 +3,17 @@
   <component name="CompilerConfiguration">
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
+<<<<<<< HEAD
       <profile name="Annotation profile for User-Service" enabled="true">
+=======
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="Api-Gateway" />
+      </profile>
+      <profile name="Annotation profile for Service-Discovery" enabled="true">
+>>>>>>> origin/main
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -14,6 +24,7 @@
         <module name="Order-Service" />
         <module name="Service-Discovery" />
         <module name="Cart-Service" />
+<<<<<<< HEAD
         <module name="Payment-Service" />
         <module name="Notification-Service" />
         <module name="Product-Service" />
@@ -24,10 +35,28 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Api-Gateway" />
+=======
+        <module name="Notification-Service" />
+        <module name="Product-Service" />
+      </profile>
+      <profile name="Annotation profile for User-Service" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+        </processorPath>
+        <module name="User-Service" />
+>>>>>>> origin/main
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="API-GateWay" target="21" />
+<<<<<<< HEAD
+=======
+      <module name="Payment-Service" target="21" />
+>>>>>>> origin/main
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
