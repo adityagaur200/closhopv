@@ -6,9 +6,9 @@
     "dev": "next dev --turbopack",
     "start": "next start",
     "lint": "next lint",
-    "build": "next build && next export",
+    "build": "next build",
     "postinstall": "npm rebuild sharp"
-  },
+    },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
