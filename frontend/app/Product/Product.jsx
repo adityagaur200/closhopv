@@ -4,23 +4,6 @@ import {
   Radio, FormLabel, FormControl, IconButton, TextField
 } from '@mui/material';
 import Image from 'next/image';
-<<<<<<< HEAD
-import React, { useState } from 'react';
-import { Add, Remove } from '@mui/icons-material';
-
-const Product = () => {
-  const product = {
-    name: "Printed Anime Hoodie",
-    price: 79.99,
-    img: "/card1.jpg",
-    description: "Captivate with this shirt’s versatile urban look.",
-    sku: "GSE-43",
-    category: "Mens",
-  };
-
-  const [size, setSize] = useState('M');
-  const [quantity, setQuantity] = useState(1);
-=======
 import React, { useEffect, useState } from 'react';
 import { Add, Remove } from '@mui/icons-material';
 import { useParams } from 'next/navigation';
@@ -45,7 +28,6 @@ const Product = () => {
     if(skucode)fetchProduct();
   },[skucode])
   
->>>>>>> origin/main
 
   const handleQuantityChange = (type) => {
     setQuantity(prev => type === 'inc' ? prev + 1 : Math.max(1, prev - 1));
