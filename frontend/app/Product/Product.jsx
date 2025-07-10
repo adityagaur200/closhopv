@@ -16,7 +16,7 @@ const Product = () => {
   useEffect(()=>{
     const fetchProduct = async()=>{
       try{
-        const res = await fetch(`http://localhost:3000/product/${skucode}}`);
+        const res = await fetch(`http://localhost:3000/product/${skucode}`);
         const data = await res.json();
         setProduct(data);
       }
@@ -27,6 +27,13 @@ const Product = () => {
     };
     if(skucode)fetchProduct();
   },[skucode])
+   if (!product) {
+    return (
+      <Box height="80vh" display="flex" alignItems="center" justifyContent="center">
+        <Typography variant="h6">Loading product...</Typography>
+      </Box>
+    );
+  }
   
 
   const handleQuantityChange = (type) => {
